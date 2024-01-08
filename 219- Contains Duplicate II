@@ -20,4 +20,4 @@ class Solution {
         }
         return false;
     }
-}
+}                       // time complexity- O(n) Space- O(min(n,k));
