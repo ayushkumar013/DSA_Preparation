@@ -1,6 +1,6 @@
 # Welcome to DSA world.
  
- **I'm a Java programmer who loves to practise solve dsa questions in our favorite language i.e. JAVA**
+ **I'm a Java programmer who loves to practise and solve dsa questions in our favorite language i.e. JAVA**
  
 # LEETCODE
 [https://leetcode.com/problemset/]
