@@ -14,4 +14,4 @@ class Solution {
         }
         return new int[]{};
     }
-}
+}   //time complexity- O(n) spcae complexity- O(n)
