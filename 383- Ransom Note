@@ -1,0 +1,18 @@
+//Given two strings ransomNote and magazine, return true if ransomNote can be constructed by using the letters from magazine and false otherwise.
+//Each letter in magazine can only be used once in ransomNote.
+//Example 1:
+//             Input: ransomNote = "a", magazine = "b"
+//             Output: false
+
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        int[] a=new int[26];
+        for(char c:magazine.toCharArray()) a[c-'a']++;
+        for(char c:ransomNote.toCharArray()){
+            if(a[c-'a']==0) return false;
+            else a[c-'a']--;
+        }
+        return true;
+    }
+}                // time complexity- O(m+n)  m is length of magzaine and n is length of ransome
+                // space complexity- O(1) 
