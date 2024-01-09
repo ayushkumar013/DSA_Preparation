@@ -1,0 +1,22 @@
+//Consider all the leaves of a binary tree, from left to right order, the values of those leaves form a leaf value sequence.
+//Two binary trees are considered leaf-similar if their leaf value sequence is the same.
+//Return true if and only if the two given trees with head nodes root1 and root2 are leaf-similar.
+//Example 1:
+//              Input: root1 = [3,5,1,6,2,9,8,null,null,7,4], root2 = [3,5,1,6,7,4,2,null,null,null,null,null,null,9,8]
+//              Output: true
+
+class Solution {
+    public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        List<Integer> l1=new ArrayList<>();
+        List<Integer> l2=new ArrayList<>();
+        DFS(root1,l1);
+        DFS(root2,l2);
+        return l1.equals(l2);
+    }
+    static void DFS(TreeNode root,List<Integer> l){
+        if(root==null) return ;
+        if(root.left== null&& root.right==null) l.add(root.val);
+        DFS(root.left,l);
+        DFS(root.right,l);
+    }
+}           //time complexity- O(n) , Space- O(h1+h2) i.e. heights of trees
