@@ -1,0 +1,12 @@
+//Given two strings needle and haystack, return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+//Example 1:
+//            Input: haystack = "sadbutsad", needle = "sad"
+//            Output: 0
+
+class Solution {
+    public int strStr(String haystack, String needle) {
+     int n=-1;
+     if(haystack.contains(needle)) return haystack.indexOf(needle);
+     return n;   
+    }
+}      // time complexity- O(m*n), space=(1)  m and are length of strings
