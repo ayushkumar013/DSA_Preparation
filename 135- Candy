@@ -1,0 +1,24 @@
+//There are n children standing in a line. Each child is assigned a rating value given in the integer array ratings.
+//Example 1:
+//          Input: ratings = [1,0,2]
+//          Output: 5
+
+class Solution {
+    public int candy(int[] nums) {
+       int[] left=new int[nums.length];   
+       int[] right=new int[nums.length];
+       Arrays.fill(left,1);
+       Arrays.fill(right,1);
+       for(int i=1;i<nums.length;i++){
+           if(nums[i]>nums[i-1])left[i]=left[i-1]+1;
+       }
+        for(int i=nums.length-2;i>=0;i--){
+           if(nums[i]>nums[i+1])right[i]=right[i+1]+1;
+       }
+       int candy=0;
+       for(int i=0;i<nums.length;i++){
+           candy+=Math.max(left[i],right[i]);
+       }
+       return candy;
+    }
+}        //time complexity- O(n),   space complexity- O(1)
