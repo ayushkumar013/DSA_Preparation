@@ -1,0 +1,22 @@
+//You are given a string s, which contains stars *.
+//Remove the closest non-star character to its left, as well as remove the star itself.
+//Return the string after all stars have been removed.
+//Example 1:
+//           Input: s = "leet**cod*e"
+//           Output: "lecoe"
+
+class Solution {
+    public String removeStars(String s) {
+        Stack<Character> st =new Stack<>();
+        for(int i=0;i<s.length();i++){
+            char ch=s.charAt(i);
+            if(st.size()==0 ||ch!='*') st.push(ch);
+            else st.pop();
+        }
+      StringBuilder result = new StringBuilder();
+        while (!st.isEmpty()) {
+            result.insert(0, st.pop()); 
+        }
+        return result.toString();
+    }
+}        time complexity- O(n),  space complexity- O(n)
