@@ -1,0 +1,19 @@
+//Given the root of a binary tree, find the maximum value v for which there exist different nodes a and b where v = |a.val - b.val| and a is an ancestor of b.
+//A node a is an ancestor of b if either: any child of a is equal to b or any child of a is an ancestor of b.
+//Example 1:
+//            Input: root = [8,3,10,1,6,null,14,null,null,4,7,13]
+//            Output: 7
+
+class Solution {
+    public int maxAncestorDiff(TreeNode root) {
+        return diff(root,root.val,root.val);
+    }
+    public static int diff(TreeNode root,int max,int min){
+        if(root==null) return max-min;
+        max=Math.max(root.val,max);
+        min=Math.min(root.val,min);
+        int left=diff(root.left,max,min);
+        int right=diff(root.right,max,min);
+        return Math.max(left,right);
+    }
+}        //time complexity- O(n),  space complexity- (h)  h is height
