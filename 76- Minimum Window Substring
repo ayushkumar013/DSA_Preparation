@@ -1,0 +1,40 @@
+//Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
+//Example 1:
+//Input: s = "ADOBECODEBANC", t = "ABC"
+//Output: "BANC"
+
+class Solution {
+    public String minWindow(String s, String t) {
+        Map<Character,Integer> mp=new HashMap<>();
+        for(int p=0;p<t.length();p++){
+            char ch=t.charAt(p);
+            if(mp.containsKey(ch)) mp.put(ch,mp.get(ch)+1);
+            else mp.put(ch,1);
+        }
+        int i=0,j=0;
+        int c=mp.size();
+        int start=0,min=Integer.MAX_VALUE;
+        while(j<s.length()){
+            char ch=s.charAt(j);
+            if(mp.containsKey(ch)){
+                mp.put(ch,mp.get(ch)-1);
+                if(mp.get(ch)==0) c--;
+                while(i<s.length() && c==0){
+                    char ci=s.charAt(i);
+                    if(mp.containsKey(ci)){
+                        mp.put(ci,mp.get(ci)+1);
+                        if(mp.get(ci)>0) c++;
+                        if(min>(j-i)+1){
+                            min=(j-i)+1;
+                            start=i;
+                        }
+                    }
+                    i++;
+                }
+            }
+            j++;
+        }
+        if(min==Integer.MAX_VALUE) return "";
+        return s.substring(start,start+min);
+    }
+}    //time complexity- O(m),  space complexity- O(n)   m is length of s string and n is to store t string in hashmap.
