@@ -1,0 +1,29 @@
+//You are given a 0-indexed string s, a string a, a string b, and an integer k.
+//Return the array that contains beautiful indices in sorted order from smallest to largest.
+//Example 1:
+//          Input: s = "isawsquirrelnearmysquirrelhouseohmy", a = "my", b = "squirrel", k = 15
+//          Output: [16,33]
+
+class Solution {
+    public List<Integer> beautifulIndices(String s, String a, String b, int k) {
+        List<Integer> ans=new ArrayList<>();
+        List<Integer> ai=new ArrayList<>();
+        List<Integer> bi=new ArrayList<>();
+        int n=s.length();
+        for(int i=0;i<=n-a.length();i++){
+            if(s.substring(i,i+a.length()).equals(a)) ai.add(i);
+        }
+         for(int i=0;i<=n-b.length();i++){
+            if(s.substring(i,i+b.length()).equals(b)) bi.add(i);
+        }
+        for(int i:ai){
+            for(int j:bi){
+                if(Math.abs(j-i)<=k){
+                    ans.add(i);
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+}   //time complexity- O(N*M),  space- O(A+B) 
