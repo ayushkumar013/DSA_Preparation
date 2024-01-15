@@ -1,0 +1,20 @@
+//Given a binary array nums, return the maximum number of consecutive 1's in the array.
+//Example 1:
+//Input: nums = [1,1,0,1,1,1]
+//Output: 3
+class Solution {
+    public int findMaxConsecutiveOnes(int[] nums) {
+        int i=0,max=0,crr=0;
+        while(i<nums.length){
+            if(nums[i]==1){
+                crr++;
+                max=Math.max(max,crr);
+            }
+            else{
+                crr=0;
+            }
+            i++;
+        }
+        return max;
+    }
+}   //time- O(n), space- O(1)
