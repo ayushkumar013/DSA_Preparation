@@ -19,6 +19,7 @@ class Solution {
             char cr=s.charAt(i);
             if(cr=='a'||cr=='e'||cr=='i'||cr=='o'||cr=='u') crr++;
             max=Math.max(max,crr);
+            if(max==k) return max;
         }
         return max;
     }
