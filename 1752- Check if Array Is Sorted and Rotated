@@ -1,0 +1,28 @@
+//Given an array nums, return true if the array was originally sorted in non-decreasing order, then rotated some number of positions (including zero). Otherwise, return false.
+//There may be duplicates in the original array.
+//Example 1:
+//Input: nums = [3,4,5,1,2]
+//Output: true
+
+class Solution {
+    public boolean check(int[] nums) {
+        int c=0;
+        int x=0;
+        for(int i=1;i<nums.length;i++){
+            if(nums[i-1]==nums[i] ||nums[i-1]<nums[i]) c++;
+            else {
+                x=nums.length-i;
+              break;  
+            }
+        }
+        if(c==nums.length-1) return true;
+        int[] a=new int[nums.length];
+        for(int i=0;i<nums.length;i++){
+            a[(x+i)%nums.length]=nums[i];
+        }
+         for(int i=1;i<nums.length;i++){
+            if(a[i]<a[i-1]) return false;
+        }
+        return true;
+    }
+}  //time- O(n),  space- O(n)
