@@ -1,0 +1,23 @@
+//You are given a 0-indexed integer array nums of even length consisting of an equal number of positive and negative integers.
+//You should rearrange the elements of nums such that the modified array follows the given conditions:
+//Example 1:
+//       Input: nums = [3,1,-2,-5,2,-4]
+//       Output: [3,-2,1,-5,2,-4]
+
+class Solution {
+    public int[] rearrangeArray(int[] nums) {
+    int[] arr=new int[nums.length];
+    int a=0,b=1;
+    for(int i=0;i<nums.length;i++){
+        if(nums[i]<0){
+            arr[b]=nums[i];
+            b+=2;
+        } 
+        else{
+           arr[a]=nums[i];
+           a+=2; 
+        } 
+    }
+    return arr;
+    }
+}   //time complexity- O(n),  space- O(n)
