@@ -21,4 +21,4 @@ class Solution {
         }
         return ans;
     }
-}
+}       //time- O(n),   space- O(n)
