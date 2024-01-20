@@ -1,0 +1,18 @@
+//Given the root of a binary tree, return the postorder traversal of its nodes' values.
+//Example 1:
+//      Input: root = [1,null,2,3]
+//      Output: [3,2,1]
+
+class Solution {
+    static void post(TreeNode root,List<Integer> li){
+        if(root==null) return;
+        post(root.left,li);
+        post(root.right,li);
+        li.add(root.val);
+    }
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> li=new ArrayList<>();
+      post(root,li); 
+      return li; 
+    }
+}    //time- O(n),  space- O(n)
