@@ -1,0 +1,35 @@
+//Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+//Example 1:
+
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        if(strs.length<1) return new ArrayList<>();
+        Map<String,List<String>> mp=new HashMap<>();
+        for(String s:strs){
+            String fre=frequency(s);
+            if(mp.containsKey(fre)) mp.get(fre).add(s);
+            else{
+                List<String> li=new ArrayList<>();
+                li.add(s);
+                mp.put(fre,li);
+            }
+        }
+        return new ArrayList<>(mp.values());
+        }
+        static String frequency(String s){
+            int[] a=new int[26];
+            for(char i:s.toCharArray()){
+                a[i-'a']++;
+            }
+            StringBuilder sb=new StringBuilder();
+           char c='a';
+            for(int i:a){
+                sb.append(c++);
+                sb.append(i);
+            }
+            return sb.toString();
+        }
+}    //time- O(N*M),  space- O(N*M) N is length String List and M is max. length of string
