@@ -1,0 +1,37 @@
+//Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (push, top, pop, and empty).
+
+class MyStack {
+    Queue<Integer> q=new LinkedList<>();
+    public MyStack() {
+        
+    }
+    
+    public void push(int x) {
+        q.add(x);
+    }
+    
+    public int pop() {
+        int x=q.size();
+        while(x!=1){
+            q.add(q.remove());
+            x--;
+        }
+        return q.remove();
+    }
+    
+    public int top() {
+        int c=0;
+        int x=q.size();
+        while(x!=0){
+            if(x==1) c=q.peek();
+            q.add(q.remove());
+            x--;
+        }
+        return c;
+    }
+    
+    public boolean empty() {
+        if(q.size()==0) return true;
+        return false;
+    }
+}   //time- O(n),  space- O(n)
