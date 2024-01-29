@@ -1,0 +1,40 @@
+//Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).
+
+class MyQueue {
+    Stack<Integer> st=new Stack<>();
+    Stack<Integer> s=new Stack<>();
+    public MyQueue() {
+        
+    }
+    
+    public void push(int x) {
+        st.push(x);
+    }
+    
+    public int pop() {
+        while(st.size()!=0){
+            s.push(st.pop());
+        }
+        int x=s.pop();
+        while(s.size()!=0){
+            st.push(s.pop());
+        }
+        return x;
+    }
+    
+    public int peek() {
+         while(st.size()!=0){
+            s.push(st.pop());
+        }
+        int x=s.peek();
+        while(s.size()!=0){
+            st.push(s.pop());
+        }
+        return x;
+    }
+    
+    public boolean empty() {
+        if(st.size()==0) return true;
+        return false;
+    }
+}   //time- O(n)  space- O(n)
