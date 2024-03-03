@@ -1,0 +1,22 @@
+// Given the head of a linked list, remove the nth node from the end of the list and return its head.
+
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode fast=head;
+        ListNode slow=head;
+        while(n>0){
+            n--;
+            fast=fast.next;
+        }
+        if(fast==null) {
+           return head.next; 
+        }
+        while(fast!=null&&fast.next!=null){
+            slow=slow.next;
+            fast=fast.next;
+        }
+        slow.next=slow.next.next;
+        return head;
+    }
+}    //tc- O(n), sc- O(1)
+ 
