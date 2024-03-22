@@ -1,0 +1,22 @@
+// You are given two linked lists: list1 and list2 of sizes n and m respectively.
+// Remove list1's nodes from the ath node to the bth node, and put list2 in their place.
+// Build the result list and return its head.
+
+class Solution {
+    public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2) {
+       ListNode temp=list1;
+       ListNode temp2=list1;
+        for(int i=1;i<=b;i++){
+        temp2=temp2.next;
+       }
+       for(int i=1;i<a;i++){
+        temp=temp.next;
+       }
+       temp.next=list2;
+      while(temp.next!=null){
+        temp=temp.next;
+      }
+      temp.next=temp2.next;
+        return list1;
+    }
+}   //tc- O(n), sc-O(n)
