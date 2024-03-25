@@ -1,0 +1,22 @@
+//Given a positive integer n. Your task is to generate a string list of all n-bit binary numbers where, for any prefix of the number,
+//there are more or an equal number of 1's than 0's. The numbers should be sorted in decreasing order of magnitude.
+
+class Solution {
+    static void find(int n,StringBuilder sb,List<String> li,int z,int o){
+        if(sb.length()==n) {li.add(sb.toString()); return ;}
+        sb.append('1');
+            find(n,sb,li,z,o+1);
+        sb.deleteCharAt(sb.length()-1);
+        if(z<o){
+            sb.append('0');
+            find(n,sb,li,z+1,o);
+            sb.deleteCharAt(sb.length()-1);
+        }
+    }
+    ArrayList<String> NBitBinary(int N) {
+        ArrayList<String> li=new ArrayList<>();
+        StringBuilder sb=new StringBuilder();
+        find(N,sb,li,0,0);
+        return (li);
+    }
+}  
