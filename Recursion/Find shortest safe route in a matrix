@@ -1,0 +1,37 @@
+//Given a matrix mat[][] with r rows and c columns, where some cells are landmines (marked as 0) and others are safe to traverse.
+//Your task is to find the shortest safe route from any cell in the leftmost column to any cell in the rightmost column of the mat. 
+//You cannot move diagonally, and you must avoid both the landmines and their adjacent cells as they are also unsafe.
+
+class Solution {
+    static boolean check(int i,int j,int[][] nums){
+        if(i-1>=0&&nums[i-1][j]==0) return false;
+        if(i+1<nums.length&&nums[i+1][j]==0) return false;
+        if(j+1<nums[0].length&&nums[i][j+1]==0) return false;
+        if(j-1>=0&&nums[i][j-1]==0) return false;
+        return true;
+    }
+    static int solve(int i,int j,int[][] nums,boolean[][] visited){
+        if(i>=0&&j>=0&&i<nums.length&&j<nums[0].length&&visited[i][j]==false&&check(i,j,nums)){
+           if(j==nums[0].length-1) return nums[i][j];
+            visited[i][j]=true;
+            int right=solve(i,j+1,nums,visited);
+            int up=solve(i-1,j,nums,visited);
+            int down=solve(i+1,j,nums,visited);
+            if(right!=Integer.MAX_VALUE) right+=nums[i][j];
+            if(down!=Integer.MAX_VALUE) down+=nums[i][j];
+            if(up!=Integer.MAX_VALUE) up+=nums[i][j];
+            visited[i][j]=false;
+            return Math.min(right,Math.min(up,down));
+        }
+        return Integer.MAX_VALUE;
+    }
+    public static int findShortestPath(int[][] nums) {
+        boolean[][] visited=new boolean[nums.length][nums[0].length];
+        for(boolean[] i:visited) Arrays.fill(i,false);
+        int ans=Integer.MAX_VALUE;
+        for(int i=0;i<nums.length;i++){
+            ans=Integer.min(ans,solve(i,0,nums,visited));
+        }
+        return ans==Integer.MAX_VALUE?-1:ans;
+    }
+}
