@@ -1,0 +1,41 @@
+// You are given an integer array nums and an integer k. The frequency of an element x is the number of times it occurs in an array.
+// An array is called good if the frequency of each element in this array is less than or equal to k.
+// Return the length of the longest good subarray of nums.
+
+class Solution {
+    public int maxSubarrayLength(int[] nums, int k) {
+       Map<Integer,Integer> mp=new HashMap<>();
+       int i=0,j=0,ans=0;
+       while(j<nums.length){
+        while(mp.containsKey(nums[j])&&mp.get(nums[j])>=k){
+            mp.put(nums[i],mp.get(nums[i])-1);
+            i++;
+        }
+        mp.put(nums[j],mp.getOrDefault(nums[j],0)+1);
+        ans=Math.max(j-i+1,ans);
+        j++;
+       }
+       return ans;
+    }
+}  //tc- O(n), sc- O(n)
+
+//class Solution {
+//     public int maxSubarrayLength(int[] nums, int k) {
+//        Map<Integer,Integer> mp=new HashMap<>();
+//        int i=0,j=0,ans=0,c=0;
+//        while(j<nums.length){
+//         mp.put(nums[j],mp.getOrDefault(nums[j],0)+1);
+//         if(mp.get(nums[j])==k+1){
+//             c++;
+//         }
+//         if(c>0){
+//             mp.put(nums[i],mp.get(nums[i])-1);
+//             if(mp.get(nums[i])==k) c--;
+//             i++;
+//         }
+//         if(c==0) ans=Math.max(j-i+1,ans);
+//         j++;
+//        }
+//        return ans;
+//     } tc- O(n), sc- O(n)
+// }
