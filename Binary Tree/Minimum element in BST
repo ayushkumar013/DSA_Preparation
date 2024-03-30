@@ -1,0 +1,24 @@
+//Given the root of a Binary Search Tree. The task is to find the minimum valued element in this given BST.
+
+//Iterative
+class Solution {
+    
+    int minValue(Node root) {
+        while(root.left!=null){
+            root=root.left;
+        }
+        return root.data;
+    }
+}  //tc-O(h), sc- O(1)
+
+
+//Recusrive
+class Solution {
+    
+    int minValue(Node root) {
+        
+        if(root.left==null) return root.data;
+        
+        return minValue(root.left);
+    }
+}  //tc- O(h), sc- O(n)
