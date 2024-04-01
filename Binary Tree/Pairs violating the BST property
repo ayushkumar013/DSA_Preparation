@@ -1,0 +1,43 @@
+class Solution {
+    static void inorder(Node root,List li){
+        if(root==null) return ;
+        inorder(root.left,li);
+        li.add(root.data);
+        inorder(root.right,li);
+    }
+    public static int pairsViolatingBST(int n, Node root) {
+        List<Integer> li=new ArrayList<>();
+        inorder(root,li);
+        int[] nums=new int[li.size()];
+        for(int i=0;i<nums.length;i++) nums[i]=li.get(i);
+        return mergeSort(nums,0,nums.length-1);
+    } 
+    static int merge(int[] nums,int l,int mid,int r){
+        int[] left=new int[mid-l+1];
+        int[] right=new int[r-mid];
+        int k=l;
+        for(int i=0;i<left.length;i++) left[i]=nums[k++];
+        for(int i=0;i<right.length;i++) right[i]=nums[k++];
+        int i=0,j=0,ans=0;
+        k=l;
+        while(i<left.length && j<right.length) {
+            if(left[i]<=right[j]) nums[k++]=left[i++];
+            else{
+               nums[k++]=right[j++]; 
+               ans+=left.length-i;
+            } 
+        }
+        while(i<left.length) nums[k++]=left[i++];
+        while(j<right.length) nums[k++]=right[j++];
+        return ans;
+    }
+    static int mergeSort(int[] nums,int l,int r){
+        if(l>=r) return 0;
+        int ans=0;
+        int mid=l+(r-l)/2;
+        ans+=mergeSort(nums,l,mid);
+        ans+=mergeSort(nums,mid+1,r);
+        ans+=merge(nums,l,mid,r);
+        return ans;
+    }
+}   //tc-O(nlogn), sc-O(n)
