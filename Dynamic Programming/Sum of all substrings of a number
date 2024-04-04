@@ -1,0 +1,39 @@
+// Given an integer s represented as a string, the task is to get the sum of all possible sub-strings of this string.
+// As the answer will be large, return answer modulo 109+7. 
+// Example 1:
+//   Input: s = "1234"
+//   Output:  1670
+
+class Solution {
+    public static long sumSubstrings(String s) {
+        int MOD = 1000000007;
+        int n = s.length();
+        long[] dp = new long[n];
+        long ans = s.charAt(0) - '0'; 
+        dp[0] = ans;
+        for (int i = 1; i < n; i++) {
+            dp[i] = ((dp[i - 1] * 10) + (i + 1) * (s.charAt(i) - '0')) % MOD;
+            ans = (ans + dp[i]) % MOD;
+        }
+
+        return ans;
+    }
+}   //tc- O(n) sc- O(n)
+
+
+
+
+class Solution
+{
+    public static long sumSubstrings(String s)
+    {
+        int MOD=1000000007;
+    long ans=s.charAt(0)-'0';
+    long c=s.charAt(0)-'0';
+    for(int i=1;i<s.length();i++){
+        c=(((s.charAt(i)-'0')*(i+1))+(c*10))%MOD;
+        ans=(ans+c)%MOD;
+    }
+    return ans;
+    }
+}  //tc- O(n), sc- O(1)
