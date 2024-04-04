@@ -1,0 +1,16 @@
+// A string is a valid parentheses string (denoted VPS) if it meets one of the following:
+// Example 1:
+//   Input: s = "(1+(2*3)+((8)/4))+1"
+//   Output: 3
+
+class Solution {
+    public int maxDepth(String s) {
+        int c=0,ans=0;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)==')') c--;
+            else if(s.charAt(i)=='(') c++;
+            ans=Math.max(ans,c);
+        }
+        return ans;
+         }
+}   //tc- O(n), sc- O(1)
