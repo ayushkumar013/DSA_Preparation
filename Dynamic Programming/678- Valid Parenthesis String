@@ -1,0 +1,28 @@
+// Given a string s containing only three types of characters: '(', ')' and '*', return true if s is valid.
+// Example 1:
+//      Input: s = "()"
+//      Output: true
+
+class Solution {
+    static boolean solve(String s,int i,int open,int[][] dp){
+        if(i==s.length()) return open==0;
+        if( dp[i][open]!=-1) return dp[i][open]==1;
+        boolean isValid=false;
+        if(s.charAt(i)=='(')  isValid |=solve(s,i+1,open+1,dp);
+        else if(s.charAt(i)==')'){
+            if(open>0) isValid |= solve(s,i+1,open-1,dp);
+       } 
+        else{
+            isValid |= solve(s,i+1,open+1,dp);
+            isValid |=solve(s,i+1,open,dp);
+            if(open>0) isValid |= solve(s,i+1,open-1,dp);
+        }
+        dp[i][open]=isValid?1:0;
+        return isValid;
+    }
+    public boolean checkValidString(String s) {
+        int[][] dp=new int[s.length()][s.length()];
+        for(int[] i:dp) Arrays.fill(i,-1);
+        return solve(s,0,0,dp);
+    }
+}
