@@ -1,0 +1,23 @@
+//You are given an integer n and an integer array arr of size n+2. All elements of the array are in the range from 1 to n.
+//Also, all elements occur once except two numbers which occur twice. Find the two repeating numbers.
+// Example 1:
+//      Input:n = 4  arr[] = {1,2,1,3,4,3}
+//      Output:  1 3
+
+class Solution
+{
+    public int[] twoRepeated(int nums[], int n)
+    {
+        Set<Integer> st=new HashSet<>();
+        ArrayList<Integer> li=new ArrayList<>();
+        for(int i=0;i<nums.length;i++){
+            if(st.contains(nums[i])) li.add(nums[i]);
+            st.add(nums[i]);
+        }
+         int[] result = new int[li.size()];
+        for (int i = 0; i < li.size(); i++) {
+            result[i] = li.get(i);
+        }    
+        return result;
+    } 
+}
