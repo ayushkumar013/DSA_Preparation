@@ -1,0 +1,49 @@
+// You are given row x col grid representing a map where grid[i][j] = 1 represents land and grid[i][j] = 0 represents water.
+// Example 1:
+//     Input: grid = [[0,1,0,0],[1,1,1,0],[0,1,0,0],[1,1,0,0]]
+//     Output: 16
+
+//                                               Approach-1
+class Solution {
+    public int ans=0;
+    void solve(int[][] nums,int i,int j){
+        if(i<0 || j<0 || i>nums.length-1 || j>nums[0].length-1 ||nums[i][j]==0){ 
+        ans++;
+        return;
+        }
+        if(nums[i][j]==-1){
+        return;
+        }
+        nums[i][j]=-1;
+        solve(nums,i+1,j);
+        solve(nums,i,j+1);
+        solve(nums,i-1,j);
+        solve(nums,i,j-1);
+    }
+    public int islandPerimeter(int[][] grid) {
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(grid[i][j]==1){solve(grid,i,j);
+                }
+            }
+        }
+        return ans;
+    }
+}   
+//                                                   APPROACH-2
+class Solution {
+    public int islandPerimeter(int[][] nums) {
+        int ans=0;
+        for(int i=0;i<nums.length;i++){
+            for(int j=0;j<nums[0].length;j++){
+                if(nums[i][j]==1){
+                    if(i==0 || nums[i-1][j]==0) ans++;
+                    if(j==0 || nums[i][j-1]==0) ans++;
+                    if(i==nums.length-1 || nums[i+1][j]==0) ans++;
+                    if(j==nums[0].length-1 || nums[i][j+1]==0) ans++;
+                }
+            }
+        }
+        return ans;
+    }
+}
