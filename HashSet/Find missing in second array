@@ -1,0 +1,17 @@
+// Given two integer arrays a of size n and b of size m, the task is to find the numbers which are present in the first array a, but not present in the second array b.
+
+
+class Solution
+{
+    ArrayList<Integer> findMissing(int a[], int b[], int n, int m)
+    {
+        ArrayList<Integer> li= new ArrayList<>();
+        Set<Integer> st=new HashSet<>();
+        for(int i=0;i<m;i++) st.add(b[i]);
+        for(int i=0;i<n;i++){
+            if(st.contains(a[i])) continue;
+            li.add(a[i]);
+        }
+        return li;
+    }
+}
