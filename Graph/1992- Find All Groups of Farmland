@@ -1,0 +1,42 @@
+//You are given a 0-indexed m x n binary matrix land where a 0 represents a hectare of forested land and a 1 represents a hectare of farmland.
+// Example 1:
+//    Input: land = [[1,0,0],[0,1,1],[0,1,1]]
+//    Output: [[0,0,0,0],[1,1,2,2]]
+
+class Solution {
+    public int mi=0,mj=0;
+    void dfs(int[][] nums,int i,int j){
+        if(i==nums.length || j==nums[0].length || nums[i][j]==0) return;
+       nums[i][j]=0;
+       mj=Math.max(mj,j);
+       mi=Math.max(i,mi);
+       dfs(nums,i+1,j);
+       dfs(nums,i,j+1); 
+    }
+    public int[][] findFarmland(int[][] nums) {
+        List<List<Integer>> li=new ArrayList<>();
+        for(int i=0;i<nums.length;i++){
+            for(int j=0;j<nums[0].length;j++){
+                if(nums[i][j]==1){
+                    List<Integer> temp=new ArrayList<>();
+                    mi=i;
+                    mj=j;
+                    dfs(nums,i,j);
+                    temp.add(i);
+                    temp.add(j);
+                    temp.add(mi);
+                    temp.add(mj);
+                    li.add(temp);
+                }
+            }
+        }int i=0;
+        int[][] ans=new int[li.size()][4];
+        for(List<Integer> list:li){
+            ans[i][0]=list.get(0);
+            ans[i][1]=list.get(1);
+            ans[i][2]=list.get(2);
+            ans[i++][3]=list.get(3);
+        }
+        return ans;
+    }
+}
