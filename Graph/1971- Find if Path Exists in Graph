@@ -1,0 +1,61 @@
+//There is a bi-directional graph with n vertices, where each vertex is labeled from 0 to n - 1 (inclusive).
+//The edges in the graph are represented as a 2D integer array edges, where each edges[i] = [ui, vi] denotes a bi-directional edge between vertex ui and vertex vi. Every vertex pair is connected by at most one edge, and no vertex has an edge to itself.
+// Example 1:
+//    Input: n = 3, edges = [[0,1],[1,2],[2,0]], source = 0, destination = 2
+//    Output: true
+//                                                    #DFS
+class Solution {
+    boolean dfs(Map<Integer,List<Integer>> mp,boolean[] visited,int s,int d){
+        if(s==d) return true;
+        if(visited[s]) return false;
+        visited[s]=true;
+        for(int i:mp.get(s)){
+            if(dfs(mp,visited,i,d)) return true ;
+        }
+        return false;
+    }
+    public boolean validPath(int n, int[][] edges, int source, int destination) {
+        Map<Integer,List<Integer>> mp=new HashMap<>();
+        for(int[] i:edges){
+            int a=i[0];
+            int b=i[1];
+            if(!mp.containsKey(a)) mp.put(a,new ArrayList<>());
+            mp.get(a).add(b);
+            if(!mp.containsKey(b)) mp.put(b,new ArrayList<>());
+            mp.get(b).add(a);
+        }
+        boolean[] visited=new boolean[n];
+        Arrays.fill(visited,false);
+        return dfs(mp,visited,source,destination);
+    }
+}
+//                                                    BFS
+class Solution {
+    public boolean validPath(int n, int[][] edges, int source, int destination) {
+        Map<Integer,List<Integer>> mp=new HashMap<>();
+        for(int[] i:edges){
+            int a=i[0];
+            int b=i[1];
+            if(!mp.containsKey(a)) mp.put(a,new ArrayList<>());
+            mp.get(a).add(b);
+            if(!mp.containsKey(b)) mp.put(b,new ArrayList<>());
+            mp.get(b).add(a);
+        }
+        Queue<Integer> q=new LinkedList<>();
+        boolean[] visited=new boolean[n];
+        Arrays.fill(visited,false);
+        q.add(source);
+        visited[source]=true;
+        while(q.size()>0){
+            int node=q.remove();
+            if(destination==node) return true;
+            for(int i:mp.get(node)){
+                if(!visited[i]){
+                    visited[i]=true;
+                    q.add(i);
+                }
+            }
+        }
+        return false;
+    }
+}
