@@ -1,0 +1,24 @@
+//Given a 2D binary matrix(1-based indexed) a of dimensions nxm , determine the row that contains the minimum number of 1's.
+// Example 1:
+//     Input: n = 4,m = 4     a = [[1, 1, 1, 1], [1, 1, 0, 0],  [0, 0, 1, 1], [1, 1, 1, 1]]
+//     Output: 2
+
+class Solution {
+    int minRow(int n, int m, int a[][]) {
+        int ans=1,precount=0;
+        for(int i=0;i<m;i++){
+            if(a[0][i]==1) precount++;
+        }
+        for(int i=1;i<n;i++){
+            int count=0;
+            for(int j=0;j<m;j++){
+                if(a[i][j]==1) count++;
+            }
+            if(precount>count){
+                ans=i+1;
+                precount=count;
+            }
+        }
+        return ans;
+    }
+};
