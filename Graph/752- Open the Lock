@@ -1,0 +1,46 @@
+//You have a lock in front of you with 4 circular wheels. Each wheel has 10 slots: '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'. 
+//The wheels can rotate freely and wrap around: for example we can turn '9' to be '0', or '0' to be '9'. Each move consists of turning one wheel one slot.
+//The lock initially starts at '0000', a string representing the state of the 4 wheels.
+//Example 1:
+//     Input: deadends = ["0201","0101","0102","1212","2002"], target = "0202"
+//     Output: 6
+
+class Solution {
+    static void fill(Queue<StringBuilder> q,StringBuilder crr,Set<String> st){
+        for(int i=0;i<4;i++){
+            char ch=crr.charAt(i);
+            char dec= (ch=='0') ? '9':(char)(ch-1);
+            char inc= (ch=='9') ? '0':(char)(ch+1);
+            crr.setCharAt(i,dec);
+            if(!st.contains(crr.toString())){
+                q.add(new StringBuilder(crr));
+                st.add(crr.toString());
+            }
+            crr.setCharAt(i,inc);
+            if(!st.contains(crr.toString())){
+                q.add(new StringBuilder(crr));
+                st.add(crr.toString());
+            }
+            crr.setCharAt(i,ch);
+        }
+    }
+    public int openLock(String[] deadends, String target) {
+        Queue<StringBuilder> q=new LinkedList();
+        Set<String> st=new HashSet<>();
+        for(String i:deadends) st.add(i);
+        if(st.contains(target) || st.contains("0000")) return -1;
+        StringBuilder sb=new StringBuilder("0000");
+        q.add(sb);
+        int ans=0;
+        while(q.size()>0){
+            int n=q.size();
+            for(int i=0;i<n;i++){
+                StringBuilder crr=q.remove();
+                if(crr.toString().equals(target)) return ans;
+                fill(q,crr,st);
+            }
+            ans++;
+        }
+        return -1;
+    }
+}
