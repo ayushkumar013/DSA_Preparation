@@ -1,0 +1,49 @@
+//Rohan has a special love for the matrices especially for the first element of the matrix. Being good at Mathematics, he also loves to solve the different problem on the matrices. So one day he started to multiply the matrix with the original matrix.  The elements of the original matrix a are given by [a00=1 , a01=1, a10=1, a11=0].
+//Given the power of the matrix, n calculate the an and return the a10 element mod 1000000007.
+// Example 1:
+//      Input:  n = 3
+//      Output:  2 
+
+
+
+class Solution {
+    static int firstElement(int n) {
+        if(n==1 || n==2) return 1;
+        int n1=1,n2=1,ans=0,MOD=1000000007;
+        for(int i=3;i<=n;i++){
+            ans=(n1+n2)%MOD;
+            n1=(n2)%MOD;
+            n2=(ans)%MOD;
+        }
+        return ans;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
