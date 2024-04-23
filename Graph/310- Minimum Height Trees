@@ -1,0 +1,42 @@
+//A tree is an undirected graph in which any two vertices are connected by exactly one path. In other words, any connected graph without simple cycles is a tree.
+//Given a tree of n nodes labelled from 0 to n - 1, and an array of n - 1 edges where edges[i] = [ai, bi] indicates that there is an undirected edge between the two nodes ai and bi in the tree, you can choose any node of the tree as the root. When you select a node x as the root, the result tree has height h. Among all possible rooted trees, those with minimum height (i.e. min(h))  are called minimum height trees (MHTs).
+//Return a list of all MHTs' root labels. You can return the answer in any order.
+// Example 1:
+//      Input: n = 4, edges = [[1,0],[1,2],[1,3]]
+//      Output: [1]
+
+class Solution {
+    public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        if(n==1){
+            List<Integer> res=new ArrayList<>();
+            res.add(0);
+            return res;
+        }
+        Map<Integer,List<Integer>> mp=new HashMap<>();
+        int[] in=new int[n];
+        for(int i[]:edges){
+            int a=i[0];
+            int b=i[1];
+            in[a]++;
+            in[b]++;
+            if(!mp.containsKey(a)) mp.put(a,new ArrayList<Integer>());
+            mp.get(a).add(b);
+            if(!mp.containsKey(b)) mp.put(b,new ArrayList<Integer>());
+            mp.get(b).add(a);
+        }
+        Queue<Integer> q=new LinkedList<>();
+        for(int i=0;i<n;i++) if(in[i]==1) q.add(i);
+        while(q.size()<n){
+            int s=q.size();
+            n-=s;
+            for(int i=0;i<s;i++){
+                int c=q.remove();
+                for(int j:mp.get(c)){
+                    in[j]--;
+                    if(in[j]==1) q.add(j);
+                }
+            }
+        }
+        return new ArrayList<>(q);
+    }
+}
