@@ -1,0 +1,25 @@
+//You are standing on a point (x, y) and you want to go to the origin (0, 0) by taking steps either left or down i.e. from each point you are allowed to move either in (x-1, y) or (x, y-1). Find the number of paths from point to origin.
+// Example 1:
+//     Input: x = 3, y = 0 
+//     Output:  1
+
+class Solution
+{
+    int solve(int n, int m, int[][] dp) {
+        if(n < 0 || m < 0) return 0;
+        if(n == 0 && m == 0) return 1;
+        if(dp[n][m] != -1) return dp[n][m];
+        int MOD=1000000007;
+        int left=solve(n-1, m, dp)%MOD;
+        int right=solve(n, m-1, dp)%MOD;
+        return dp[n][m]=(left+right)%MOD;
+    }
+    
+    public int ways(int n, int m)
+    {
+        int[][] dp = new int[n+1][m+1];
+        for(int[] i: dp) Arrays.fill(i, -1);
+        return solve(n, m, dp);
+    }
+}
+
