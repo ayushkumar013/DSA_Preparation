@@ -1,0 +1,27 @@
+//Given a matrix of size n x m with 0’s and 1’s, you enter the matrix at cell (0,0) in left to right direction. Whenever you encounter a 0 you retain it in the same direction, else if you encounter a 1 you have to change the direction to the right of the current direction and change that 1 value to 0, you have to find out from which index you will leave the matrix at the end.
+//  Example 1:
+//       Input: n = 3, m = 3    matrix = {{0, 1, 0},
+                                          {0, 1, 1}, 
+                                          {0, 0, 0}}
+//Output:   {1, 0}
+
+
+class Solution {
+    public int[] FindExitPoint(int n, int m, int[][] matrix) {
+        int i=0,j=0,di=0,dj=1;
+        int[] ans=new int[2];
+        while(i>=0 && i<n && j<m && j>=0){
+            if(matrix[i][j]==1){
+                matrix[i][j]=0;
+                int temp=di;
+                di=dj;
+                dj=-temp;
+            }
+            ans[0]=i;
+            ans[1]=j;
+            i+=di;
+            j+=dj;
+        }
+        return ans;
+    }
+}
