@@ -1,0 +1,39 @@
+//You are given an m x n integer array grid where grid[i][j] could be:
+//1 representing the starting square. There is exactly one starting square.
+//2 representing the ending square. There is exactly one ending square.
+//0 representing empty squares we can walk over.
+//-1 representing obstacles that we cannot walk over.
+//Return the number of 4-directional walks from the starting square to the ending square, that walk over every non-obstacle square exactly once.
+// Example 1:
+//     Input: grid = [[1,0,0,0],[0,0,0,0],[0,0,2,-1]]
+//     Output: 2
+class Solution {
+    public int zero=0;
+    int solve(int i,int j,int c,int[][] nums,int m,int n){
+        if(i<0 || j<0 || i==m || j==n ) return 0;
+        if(nums[i][j]==2) return (c==zero)?1:0;
+        if(nums[i][j]==-1) return 0;
+        nums[i][j]=-1;
+        int right=solve(i,j+1,c+1,nums,m,n);
+        int left=solve(i,j-1,c+1,nums,m,n);
+        int down=solve(i+1,j,c+1,nums,m,n);
+        int up=solve(i-1,j,c+1,nums,m,n);
+        nums[i][j]=0;
+        return right+left+up+down;
+    }
+    public int uniquePathsIII(int[][] grid) {
+        int x=0,y=0,ans=0;
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(grid[i][j]==1){
+                    x=i;
+                    y=j;
+                    zero++;
+                }
+                if(grid[i][j]==0) zero++;
+            }} 
+            int m=grid.length,n=grid[0].length;
+            ans+=solve(x,y,0,grid,m,n);
+            return ans;
+        }
+}
