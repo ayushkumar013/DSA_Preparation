@@ -1,0 +1,34 @@
+//You are given the head of a non-empty linked list representing a non-negative integer without leading zeroes.
+//Return the head of the linked list after doubling it.
+// Example 1:
+//       Input: head = [1,8,9]
+//       Output: [3,7,8]
+
+class Solution {
+    static ListNode reverse(ListNode head){
+        if(head==null || head.next==null) return head;
+        ListNode last=reverse(head.next);
+        head.next.next=head;
+        head.next=null;
+        return last;
+    }
+    public ListNode doubleIt(ListNode head) {
+        head=reverse(head);
+        ListNode ans=new ListNode(0);
+        ListNode t=ans;
+        int c=0;
+        while(head!=null){
+            int d=(head.val*2)%10;
+            ListNode x=new ListNode(d+c);
+            c=(head.val*2)/10;
+            t.next=x;
+            t=t.next;
+            head=head.next;
+        }
+        if(c!=0){
+            ListNode x=new ListNode(c);
+            t.next=x;
+        }
+        return reverse(ans.next);
+    }
+}
